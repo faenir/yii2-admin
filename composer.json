@@ -1,0 +1,24 @@
+{
+  "name": "fourteenmeister/yii2-admin",
+  "description": "Yii2 admin module",
+  "type": "yii2-extension",
+  "keywords": [
+    "yii2",
+    "extension"
+  ],
+  "license": "BSD-3-Clause",
+  "authors": [
+    {
+      "name": "fourteenmeister",
+      "email": "fourteenmeister@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "fourteenmeister\\admin\\": ""
+    }
+  },
+  "extra": {
+    "bootstrap": "fourteenmeister\\admin\\Bootstrap"
+  }
+}
