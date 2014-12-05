@@ -1,0 +1,1 @@
+<div class="navbar-fixed-bottom hidden" id="ajax-container" ajax-container style="position: fixed; bottom: 0px; z-index: 9999;"></div>
