@@ -21,10 +21,14 @@ echo AlertBlock::widget([
     ]
 ]);
 
-echo Html::script("if($('.modal').length) {
-    $('.modal').modal('hide');
-    if($('.modal #response').length) {
-        $('#response').html($('.modal #response').children());
-    }
-}
-alertClose();");
+$this->registerJs(
+    "$('document').ready(function(){
+        if($('.modal').length) {
+            $('.modal').modal('hide');
+            if($('.modal #response').length) {
+                $('#response').html($('.modal #response').children());
+            }
+        }
+        alertClose();
+    });"
+);

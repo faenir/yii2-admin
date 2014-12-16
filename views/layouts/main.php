@@ -1,6 +1,7 @@
 <?php
 
 use fourteenmeister\core\CoreAsset;
+use yii\base\Event;
 use yii\helpers\Html;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -18,6 +19,9 @@ Icon::map($this);
  * @var string $content
  */
 CoreAsset::register($this);
+?>
+<?php
+Yii::$app->trigger('fileInput', new Event(['sender' => $this]));
 ?>
 <?php $this->beginPage() ?>
     <!DOCTYPE html>
@@ -59,7 +63,7 @@ CoreAsset::register($this);
         ]);
         $rightMenu = [];
         $rightMenu[] = [
-            'label' => Icon::show('home') . 'Сайт',
+            'label' => Icon::show('home') . Yii::t('core', 'Site'),
             'url' => Yii::$app->urlManagerFrontend->createUrl(''),
             'linkOptions' => [
                 'style' => 'color: white;'
@@ -79,11 +83,11 @@ CoreAsset::register($this);
             'dropdown' => [
                 'items' => [
                     [
-                        'label' => Icon::show('pencil-square-o') . 'Профиль',
+                        'label' => Icon::show('pencil-square-o') . Yii::t('core', 'Profile'),
                         'url' => ['/users/profile'],
                     ],
                     [
-                        'label' => Icon::show('sign-out') . 'Выйти',
+                        'label' => Icon::show('sign-out') . Yii::t('core', 'Logout'),
                         'url' => ['/users/logout'],
                         'linkOptions' => [
                             'data-method' => 'post',
@@ -103,7 +107,8 @@ CoreAsset::register($this);
 
         <div class="container-fluid" style="margin-top: 50px;">
             <div class="row no-padding">
-                <div class="col-md-2" style="height: calc(100vh - 100px);background: none repeat scroll 0 0 #f4f4f4; box-shadow: -3px 0 8px -4px rgba(0, 0, 0, 0.07) inset;">
+                <div class="col-md-2"
+                     style="height: calc(100vh - 100px);background: none repeat scroll 0 0 #f4f4f4; box-shadow: -3px 0 8px -4px rgba(0, 0, 0, 0.07) inset;">
                     <?php
                     echo SideNav::widget([
                         'type' => SideNav::TYPE_DEFAULT,
@@ -156,7 +161,7 @@ CoreAsset::register($this);
                     ]);
                     ?>
                 </div>
-                <div id="content" class="col-md-10">
+                <div id="content" class="col-md-10" style="overflow-y: auto; height: calc(100vh - 150px)">
                     <?=
                     Breadcrumbs::widget([
                         'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
@@ -170,6 +175,12 @@ CoreAsset::register($this);
 
     <?php $this->beginContent('@app/views/layouts/ajax.php'); ?>
     <?php $this->endContent(); ?>
+    <?php
+    echo Html::img(Yii::$app->assetManager->getBundle('fourteenmeister\core\CoreAsset')->baseUrl . '/img/spinner.gif', [
+        'style' => 'display: none; position: absolute; left: 50%; top: 40%;',
+        'id' => 'loading'
+    ]);
+    ?>
     <?php
     Pjax::begin([
         'id' => 'response',

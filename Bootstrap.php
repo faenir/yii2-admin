@@ -2,6 +2,7 @@
 
 namespace fourteenmeister\admin;
 
+use Yii;
 use yii\base\BootstrapInterface;
 
 /**
